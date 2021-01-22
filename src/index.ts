@@ -1,46 +1,19 @@
-import prompt from 'prompt';
-import { Room } from './classes/class.room';
-import { Remote } from './classes/class.remote';
-import { Television } from './classes/class.television';
+import { RatedSeries } from './classes/class.series';
+import { Article, RatedArticle } from './classes/class.article';
 
-const remote = new Remote();
-const tv = new Television();
-Room.add(remote);
-Room.add(tv);
 
-prompt.start();
+const series = new RatedSeries();
 
-function listenForButtonInput(){
-    prompt.get([{
-        name: 'button',
-        description: 'Press or Release Button',
-        type: 'string',
-        required: true
-    }], (err:any, result:any) => {
-        if(!err){
-            
-            let interaction:string = "click";
-            switch(result.button[0]){
-                case ">": 
-                    result.button = result.button.substr(1);
-                    interaction = "press";
-                    break;
-            }
-            
-            // this is where we start interacting with the remote
-            const touchedButton = remote.buttons.find( button => button.emblem === result.button );
 
-            if(touchedButton){
-                switch(true){
-                    case touchedButton.isPressed: touchedButton.release(); break;
-                    case interaction === "press": touchedButton.press(); break;
-                    case interaction === "click": touchedButton.click(); break;
-                }
-            }
+const article = new RatedArticle();
+const article2 = new Article();
 
-            listenForButtonInput();
-        }
-    })
-}
+console.log("\n-----\n");
 
-listenForButtonInput();
+console.log( "RatedArticle", article );
+
+console.log("\n-----\n");
+
+console.log( "Article", article2 );
+
+console.log("\n-----\n");
